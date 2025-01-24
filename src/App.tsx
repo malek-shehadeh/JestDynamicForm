@@ -1,12 +1,12 @@
 
 import './App.css'
-// import { DynamicForm } from './components/DynamicForm/DynamicForm'
+import { DynamicForm } from './components/DynamicForm/DynamicForm'
 
 function App() {
 
   return (
     <>
-     {/* <DynamicForm/> */}
+     <DynamicForm/>
     </>
   )
 }
