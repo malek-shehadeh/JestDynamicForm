@@ -1,0 +1,64 @@
+
+// src/components/Input/Input.scss
+$primary-color: #3b82f6;
+$error-color: #ef4444;
+$gray-300: #d1d5db;
+$gray-700: #374151;
+$white: #ffffff;
+
+.input {
+  &__label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $gray-700;
+  }
+
+  &__required {
+    margin-left: 0.25rem;
+    color: $error-color;
+  }
+
+  &__container {
+    position: relative;
+  }
+
+  &__field {
+    width: 100%;
+    padding: 0.625rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: $gray-700;
+    background-color: $white;
+    border: 1px solid $gray-300;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+
+    &:disabled {
+      background-color: #f3f4f6;
+      cursor: not-allowed;
+    }
+
+    &--error {
+      border-color: $error-color;
+
+      &:focus {
+        border-color: $error-color;
+        box-shadow: 0 0 0 3px rgba($error-color, 0.1);
+      }
+    }
+  }
+
+  &__error {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: $error-color;
+  }
+}
