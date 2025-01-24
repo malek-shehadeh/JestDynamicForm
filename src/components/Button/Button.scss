@@ -1,0 +1,72 @@
+// src/components/Button/Button.scss
+@use "sass:color";
+
+$primary-color: #3b82f6;
+$secondary-color: #4b5563;
+$white: #ffffff;
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  border: none;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.5);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  // Variants
+  &--primary {
+    background-color: $primary-color;
+    color: $white;
+
+    &:hover:not(:disabled) {
+      background-color: color.adjust($primary-color, $lightness: -10%);
+    }
+  }
+
+  &--secondary {
+    background-color: $secondary-color;
+    color: $white;
+
+    &:hover:not(:disabled) {
+      background-color: color.adjust($secondary-color, $lightness: -10%);
+    }
+  }
+
+  &--outline {
+    background-color: transparent;
+    border: 2px solid $primary-color;
+    color: $primary-color;
+
+    &:hover:not(:disabled) {
+      background-color: rgba($primary-color, 0.1);
+    }
+  }
+
+  // Sizes
+  &--sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  &--md {
+    padding: 0.625rem 1.25rem;
+    font-size: 1rem;
+  }
+
+  &--lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.125rem;
+  }
+}
