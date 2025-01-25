@@ -1,17 +1,15 @@
 
-
-
 import { useState } from 'react';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import { Button, Alert, Input } from 'digitinary-ui';
-import { Select } from '../Select/Select';
-import { Checkbox } from '../Checkbox/Checkbox';
+import { useForm, Controller } from 'react-hook-form';
+import { Button } from 'digitinary-ui';
+import { FormInput, FormAlert } from '../index';
+import { Select } from '../Select/Select'; 
 import { formConfig } from '../../config/formConfig';
 import { FormOutlined, SendOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import './DynamicForm.scss';
 
 type FormInputs = {
-  [key: string]: string | boolean | number; // Allow string, boolean, or number values
+  [key: string]: string | boolean | number;
 };
 
 export const DynamicForm = () => {
@@ -23,10 +21,7 @@ export const DynamicForm = () => {
   } = useForm<FormInputs>({
     mode: 'all',
     defaultValues: Object.fromEntries(
-      formConfig.fields.map((field) => [
-        field.name,
-        field.type === 'checkbox' ? false : '',
-      ])
+      formConfig.fields.map((field) => [field.name, '']) 
     ),
   });
 
@@ -34,73 +29,14 @@ export const DynamicForm = () => {
   const [alertMessage, setAlertMessage] = useState('');
   const [alertSeverity, setAlertSeverity] = useState<'success' | 'error'>('success');
 
-  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+  const onSubmit = (data: FormInputs) => {
     console.log('Form submitted:', data);
-
     setAlertMessage('Form submitted successfully!');
     setAlertSeverity('success');
     setShowAlert(true);
-
     reset();
-
-    setTimeout(() => {
-      setShowAlert(false);
-    }, 5000);
+    setTimeout(() => setShowAlert(false), 5000);
   };
-
-  // Helper function to render Input fields
-  const renderInput = (
-    field: typeof formConfig.fields[number],
-    value: string | number,
-    onChange: (value: string | number) => void,
-    error?: { message?: string }
-  ) => (
-    <Input
-      type={field.type === 'password' ? 'password' : 'text'} 
-      label={field.label}
-      placeholder={field.placeholder}
-      value={value}
-      onChange={onChange}
-      errorMsg={error?.message || ''} 
-      helperText={field.helperText || ''} 
-      clearable={field.clearable || false} 
-      size={field.size || 'medium'} 
-      fullWidth={field.fullWidth || false} 
-    />
-  );
-
-  // Helper function to render Select fields
-  const renderSelect = (
-    field: typeof formConfig.fields[number],
-    value: string,
-    onChange: (value: string) => void,
-    error?: { message?: string }
-  ) => (
-    <Select
-      name={field.name} // Pass the name prop
-      label={field.label}
-      options={field.options || []}
-      value={value}
-      onChange={(e) => onChange(e.target.value)} // Handle ChangeEvent<HTMLSelectElement>
-      error={error?.message || ''} // Ensure error is always a string
-    />
-  );
-
-  // Helper function to render Checkbox fields
-  const renderCheckbox = (
-    field: typeof formConfig.fields[number],
-    value: boolean,
-    onChange: (value: boolean) => void,
-    error?: { message?: string }
-  ) => (
-    <Checkbox
-      name={field.name} // Pass the name prop
-      label={field.label}
-      checked={value}
-      onChange={(e) => onChange(e.target.checked)} // Handle ChangeEvent<HTMLInputElement>
-      error={error?.message || ''} // Ensure error is always a string
-    />
-  );
 
   return (
     <div className="dynamic-form">
@@ -109,44 +45,50 @@ export const DynamicForm = () => {
         Dynamic Form Example
       </h1>
       <form onSubmit={handleSubmit(onSubmit)} className="dynamic-form__content" noValidate>
-        {formConfig.fields.map((field, index) => {
-          const uniqueKey = `${field.name}-${field.type}-${index}`;
-          return (
-            <div key={uniqueKey}>
-              <Controller
-                name={field.name}
-                control={control}
-                rules={{
-                  required: field.required ? field.validation?.errorMessage : false,
-                  ...(field.validation?.regex && {
-                    pattern: {
+        {formConfig.fields.map((field, index) => (
+          <div key={`${field.name}-${index}`}>
+            <Controller
+              name={field.name}
+              control={control}
+              rules={{
+                required: field.required ? field.validation?.errorMessage : false,
+                pattern: field.validation?.regex
+                  ? {
                       value: new RegExp(field.validation.regex),
                       message: field.validation.errorMessage,
-                    },
-                  }),
-                }}
-                render={({ field: { value, onChange }, fieldState: { error } }) => {
-                  switch (field.type) {
-                    case 'select':
-                      return renderSelect(field, value as string, onChange, error);
-                    case 'checkbox':
-                      return renderCheckbox(field, value as boolean, onChange, error);
-                    case 'text':
-                    case 'password':
-                      return renderInput(field, value as string, (newValue: string | number) => onChange(newValue), error);
-                    default:
-                      console.error(`Unsupported field type: ${field.type}`);
-                      return (
-                        <div style={{ color: 'red' }}>
-                          Unsupported field type: {field.type}
-                        </div>
-                      );
-                  }
-                }}
-              />
-            </div>
-          );
-        })}
+                    }
+                  : undefined,
+              }}
+              render={({ field: { value, onChange }, fieldState: { error } }) => {
+                if (field.type === 'select') {
+                  return (
+                    <Select
+                      name={field.name}
+                      label={field.label}
+                      options={field.options || []}
+                      value={value as string}
+                      onChange={(e) => onChange(e.target.value)}
+                      error={error?.message || ''}
+                    />
+                  );
+                }
+                return (
+                  <FormInput
+                    label={field.label}
+                    value={value as string}
+                    onChange={onChange}
+                    errorMsg={error?.message}
+                    helperText={field.helperText}
+                    type={field.type === 'password' ? 'password' : 'text'}
+                    placeholder={field.placeholder}
+                    clearable={field.clearable}
+                    size={field.size}
+                  />
+                );
+              }}
+            />
+          </div>
+        ))}
 
         <div className="dynamic-form__footer">
           <Button
@@ -156,7 +98,6 @@ export const DynamicForm = () => {
             size="medium"
             fullWidth
             disabled={!isValid || !isDirty || Object.keys(errors).length > 0}
-            loading={false}
             startIcon={<SendOutlined />}
           >
             Submit Form
@@ -165,13 +106,13 @@ export const DynamicForm = () => {
       </form>
 
       {showAlert && (
-        <Alert 
-          severity={alertSeverity} 
+        <FormAlert
+          severity={alertSeverity}
           variant="default"
           icon={<CheckCircleOutlined />}
         >
           {alertMessage}
-        </Alert>
+        </FormAlert>
       )}
     </div>
   );
