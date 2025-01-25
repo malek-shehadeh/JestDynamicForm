@@ -1,14 +1,53 @@
 
-// src/styles/_variables.scss
 
-// Colors
+// // Colors
+// $primary-color: #3b82f6;
+// $secondary-color: #4b5563;
+// $error-color: #ef4444;
+// $success-color: #10b981;
+// $warning-color: #f59e0b;
+
+// // Grayscale
+// $gray-100: #f3f4f6;
+// $gray-200: #e5e7eb;
+// $gray-300: #d1d5db;
+// $gray-400: #9ca3af;
+// $gray-500: #6b7280;
+// $gray-600: #4b5563;
+// $gray-700: #374151;
+// $gray-800: #1f2937;
+// $gray-900: #111827;
+
+// // Base colors
+// $white: #ffffff;
+// $black: #000000;
+
+// // Spacing
+// $spacing-sm: 0.5rem;
+// $spacing-md: 1rem;
+// $spacing-lg: 1.5rem;
+
+// // Border radius
+// $border-radius: 6px;
+
+// // Transitions
+// $transition-base: all 0.2s ease-in-out;
+
+// // Font sizes
+// $font-sm: 0.875rem;
+// $font-base: 1rem;
+// $font-lg: 1.125rem;
+
+
+
+// _variables.scss
+
 $primary-color: #3b82f6;
 $secondary-color: #4b5563;
 $error-color: #ef4444;
 $success-color: #10b981;
 $warning-color: #f59e0b;
 
-// Grayscale
 $gray-100: #f3f4f6;
 $gray-200: #e5e7eb;
 $gray-300: #d1d5db;
@@ -19,22 +58,16 @@ $gray-700: #374151;
 $gray-800: #1f2937;
 $gray-900: #111827;
 
-// Base colors
 $white: #ffffff;
 $black: #000000;
 
-// Spacing
 $spacing-sm: 0.5rem;
 $spacing-md: 1rem;
 $spacing-lg: 1.5rem;
 
-// Border radius
 $border-radius: 6px;
-
-// Transitions
 $transition-base: all 0.2s ease-in-out;
 
-// Font sizes
 $font-sm: 0.875rem;
 $font-base: 1rem;
 $font-lg: 1.125rem;
