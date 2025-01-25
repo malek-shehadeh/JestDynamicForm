@@ -19,7 +19,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
-    "types": ["@testing-library/jest-dom"]
+    "types": ["@testing-library/jest-dom","jest"]
   },
   "include": ["src"]
 }

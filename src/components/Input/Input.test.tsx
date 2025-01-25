@@ -1,4 +1,3 @@
-// src/components/Input/Input.test.tsx
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Input } from './Input';
 
