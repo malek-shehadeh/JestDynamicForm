@@ -117,15 +117,17 @@ export const formConfig: FormConfig = {
       fullWidth: true,
       size: "medium",
     },
-    {
-      type: "checkbox",
-      name: "agreeToTerms",
-      label: "I agree to the terms and conditions",
-      required: true,
-      validation: {
-        errorMessage: "You must agree to the terms and conditions.",
-      },
-      fullWidth: true,
-    },
+
   ],
 };
+
+// {
+//   type: "checkbox",
+//   name: "agreeToTerms",
+//   label: "I agree to the terms and conditions",
+//   required: true,
+//   validation: {
+//     errorMessage: "You must agree to the terms and conditions.",
+//   },
+//   fullWidth: true,
+// },
