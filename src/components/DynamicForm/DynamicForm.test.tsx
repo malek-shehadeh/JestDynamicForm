@@ -1,6 +1,5 @@
 
 
-
 import React from 'react';
 import { describe, test, expect, jest } from '@jest/globals';
 import { render, screen, waitFor } from '@testing-library/react';
@@ -9,13 +8,28 @@ import '@testing-library/jest-dom';
 import { DynamicForm } from './DynamicForm';
 import { formConfig } from '../../config/formConfig';
 
-// Comprehensive mocking of icons and components
+// Mocking icons
 jest.mock('@ant-design/icons', () => ({
   SendOutlined: () => 'Send',
   CheckCircleOutlined: () => 'Check',
   FormOutlined: () => 'Form',
 }));
 
+// Define the props for the Input component
+interface InputProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  errorMsg?: string;
+  helperText?: string;
+  type?: 'text' | 'password';
+  placeholder?: string;
+  clearable?: boolean;
+  size?: 'small' | 'medium' | 'large';
+  fullWidth?: boolean;
+}
+
+// Mocking digitinary-ui components
 jest.mock('digitinary-ui', () => ({
   Button: ({ children, ...props }: {
     children: React.ReactNode;
@@ -40,6 +54,33 @@ jest.mock('digitinary-ui', () => ({
   Alert: (props: { severity: string; children: React.ReactNode }) => (
     <div data-testid="alert">{props.children}</div>
   ),
+  Input: ({ label, value, onChange, errorMsg, helperText, size, ...props }: InputProps) => {
+    // Apply custom styles based on the size prop
+    const inputStyles = {
+      small: { fontSize: '12px', padding: '4px' },
+      medium: { fontSize: '14px', padding: '8px' },
+      large: { fontSize: '16px', padding: '12px' },
+    };
+
+    // Generate a unique ID for the input
+    const inputId = `input-${label.toLowerCase().replace(/\s+/g, '-')}`;
+
+    return (
+      <div>
+        <label htmlFor={inputId}>{label}</label>
+        <input
+          id={inputId}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          style={size ? inputStyles[size] : {}}
+          data-testid={inputId}
+          {...props}
+        />
+        {errorMsg && <div data-testid="error-msg">{errorMsg}</div>}
+        {helperText && <div data-testid="helper-text">{helperText}</div>}
+      </div>
+    );
+  },
 }));
 
 interface FormData {
