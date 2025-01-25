@@ -1,4 +1,3 @@
-// src/components/Checkbox/Checkbox.tsx
 import { forwardRef, type ChangeEvent, type ForwardedRef } from 'react';
 import './Checkbox.scss';
 

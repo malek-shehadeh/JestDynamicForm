@@ -1,4 +1,3 @@
-// src/components/Button/Button.tsx
 import type { FC, MouseEvent, ReactNode } from 'react';
 import './Button.scss';
 

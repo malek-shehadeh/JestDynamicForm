@@ -1,6 +1,4 @@
 
-// src/components/Select/Select.test.tsx
-// import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Select } from './Select';
 

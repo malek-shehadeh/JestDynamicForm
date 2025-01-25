@@ -1,4 +1,3 @@
-// src/components/Select/Select.tsx
 import { forwardRef, type ChangeEvent, type ForwardedRef } from 'react';
 import './Select.scss';
 
