@@ -43,7 +43,7 @@ jest.mock('digitinary-ui', () => ({
     loading?: boolean;
   }) => {
     const buttonText = React.isValidElement(children) 
-      ? 'Submit Form'  // Default text if children is an element
+      ? 'Submit Form'  
       : children;
     return (
       <button {...props}>
