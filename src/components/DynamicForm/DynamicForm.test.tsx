@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import { describe, test, expect, jest } from '@jest/globals';
 import { render, screen, waitFor } from '@testing-library/react';
@@ -8,7 +6,7 @@ import '@testing-library/jest-dom';
 import { DynamicForm } from './DynamicForm';
 import { formConfig } from '../../config/formConfig';
 
-// Mocking icons
+//  icons
 jest.mock('@ant-design/icons', () => ({
   SendOutlined: () => 'Send',
   CheckCircleOutlined: () => 'Check',
@@ -43,7 +41,7 @@ jest.mock('digitinary-ui', () => ({
     loading?: boolean;
   }) => {
     const buttonText = React.isValidElement(children) 
-      ? 'Submit Form'  // Default text if children is an element
+      ? 'Submit Form'  
       : children;
     return (
       <button {...props}>

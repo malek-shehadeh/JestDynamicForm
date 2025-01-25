@@ -56,16 +56,16 @@ export const DynamicForm = () => {
     error?: { message?: string }
   ) => (
     <Input
-      type={field.type === 'password' ? 'password' : 'text'} // Ensure type is "text" or "password"
+      type={field.type === 'password' ? 'password' : 'text'} 
       label={field.label}
       placeholder={field.placeholder}
       value={value}
       onChange={onChange}
-      errorMsg={error?.message || ''} // Ensure errorMsg is always a string
-      helperText={field.helperText || ''} // Provide a default value for helperText
-      clearable={field.clearable || false} // Provide a default value for clearable
-      size={field.size || 'medium'} // Provide a default value for size
-      fullWidth={field.fullWidth || false} // Provide a default value for fullWidth
+      errorMsg={error?.message || ''} 
+      helperText={field.helperText || ''} 
+      clearable={field.clearable || false} 
+      size={field.size || 'medium'} 
+      fullWidth={field.fullWidth || false} 
     />
   );
 
