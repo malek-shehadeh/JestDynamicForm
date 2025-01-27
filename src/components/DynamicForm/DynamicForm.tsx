@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Button } from 'digitinary-ui';
 import { FormInput, FormAlert } from '../index';
-import { Select } from '../Select/Select'; 
+import { Select } from '../Select/Select';
 import { formConfig } from '../../config/formConfig';
 import { FormOutlined, SendOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import './DynamicForm.scss';
@@ -21,7 +21,7 @@ export const DynamicForm = () => {
   } = useForm<FormInputs>({
     mode: 'all',
     defaultValues: Object.fromEntries(
-      formConfig.fields.map((field) => [field.name, '']) 
+      formConfig.fields.map((field) => [field.name, ''])
     ),
   });
 
@@ -40,7 +40,7 @@ export const DynamicForm = () => {
 
   return (
     <div className="dynamic-form">
-      <h1 className="dynamic-form__title">
+      <h1 className="dynamic-form__title" data-testid="form-title">
         <FormOutlined />
         Dynamic Form Example
       </h1>
@@ -98,7 +98,7 @@ export const DynamicForm = () => {
             size="medium"
             fullWidth
             disabled={!isValid || !isDirty || Object.keys(errors).length > 0}
-            startIcon={<SendOutlined />}
+            startIcon={<SendOutlined data-testid="submit-icon" />}
           >
             Submit Form
           </Button>
@@ -109,7 +109,7 @@ export const DynamicForm = () => {
         <FormAlert
           severity={alertSeverity}
           variant="default"
-          icon={<CheckCircleOutlined />}
+          icon={<CheckCircleOutlined data-testid="success-icon" />}
         >
           {alertMessage}
         </FormAlert>
