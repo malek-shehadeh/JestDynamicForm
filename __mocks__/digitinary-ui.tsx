@@ -29,7 +29,7 @@ interface InputProps {
 interface FormAlertProps {
   severity: "success" | "error" | "info" | "warning";
   variant?: "default" | "filled" | "outlined";
-  onClose?: boolean | (() => void); // Match the expected type
+  onClose?: boolean | (() => void); 
   action?: JSX.Element;
   icon?: JSX.Element | boolean;
   customStyle?: Record<string, string | number>;

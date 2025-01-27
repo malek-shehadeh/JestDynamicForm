@@ -4,12 +4,6 @@ import userEvent from '@testing-library/user-event';
 import { DynamicForm } from './DynamicForm';
 import { formConfig } from '../../config/formConfig';
 
-jest.mock('@ant-design/icons', () => ({
- SendOutlined: () => 'Send',
- CheckCircleOutlined: () => 'Check',
- FormOutlined: () => 'Form',
-}));
-
 describe('DynamicForm', () => {
   const validFormData = {
     fullName: 'John Doe',
@@ -32,9 +26,16 @@ describe('DynamicForm', () => {
     }
   };
 
+  it('renders form with icons', () => {
+    render(<DynamicForm />);
+    expect(screen.getByTestId('form-title')).toBeInTheDocument();
+    expect(screen.getByTestId('submit-icon')).toBeInTheDocument();
+  });
+
   it('clears form after successful submission', async () => {
     render(<DynamicForm />);
     await fillForm();
+    
     const submitButton = screen.getByRole('button', { name: /submit form/i });
     await userEvent.click(submitButton);
     
@@ -52,22 +53,21 @@ describe('DynamicForm', () => {
   });
 
   it('should hide alert after 5 seconds', async () => {
-    // Prevent fake timers warning
     jest.useRealTimers();
     
     render(<DynamicForm />);
     await fillForm();
-   
+    
     const submitButton = screen.getByRole('button', { name: /submit form/i });
     await userEvent.click(submitButton);
-   
-    // Wait for alert to appear
+    
     await waitFor(() => {
       expect(screen.getByTestId('alert')).toBeInTheDocument();
+      expect(screen.getByTestId('success-icon')).toBeInTheDocument();
     });
-   
-    // Wait for alert to disappear
+    
     await waitFor(() => {
       expect(screen.queryByTestId('alert')).not.toBeInTheDocument();
-    }, { timeout: 6000 }); 
-   }, 20000); });
+    }, { timeout: 6000 });
+  }, 20000);
+});
